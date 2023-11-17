@@ -9,8 +9,8 @@ const FoodCard = ({ item }) => {
         <h2 className="card-title ">{name}</h2>
         <h2 className="card-title absolute top-4 right-4 bg-black bg-opacity-80 px-3 py-1 text-white">{price}$</h2>
         <p>{recipe}</p>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+        <div className="card-actions mt-5">
+          <button className="btn btn-outline bg-gray-100 border-0 border-b-4 text-[#BB8506] hover:text-[#BB8506] hover:border-[#BB8506] px-5 transition-colors duration-500">Add To Cart</button>
         </div>
       </div>
     </div>
