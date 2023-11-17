@@ -22,6 +22,10 @@ export const router = createBrowserRouter([
             {
                 path: '/order',
                 element: <Order></Order>
+            },
+            {
+                path: '/order/:id',
+                element: <Order></Order>
             }
         ]
     }
