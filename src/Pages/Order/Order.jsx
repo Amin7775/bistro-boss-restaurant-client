@@ -6,9 +6,19 @@ import { useState } from "react";
 import useMenu from "../../hooks/useMenu";
 import FoodCard from "../../components/FoodCard/FoodCard";
 import { useParams } from "react-router-dom";
+import useHook from "../../hooks/useHook";
 
 const Order = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const categoriess = ["salad", "pizza", "soup", "dessert", "drinks"];
+  const category = useParams();
+  const { id } = category;
+  const findIndex = categoriess.find((item) => item === id);
+  const intialIndex = categoriess?.indexOf(findIndex);
+  const [tabIndex, setTabIndex] = useState(intialIndex);
+  // console.log(id)
+  //   console.log(findIndex, "find");
+  //   console.log(intialIndex, "ini");
+  //   console.log("table", tabIndex);
 
   const [menu] = useMenu();
   const dessert = menu.filter((item) => item.category === "dessert");
@@ -16,13 +26,14 @@ const Order = () => {
   const salad = menu.filter((item) => item.category === "salad");
   const pizza = menu.filter((item) => item.category === "pizza");
   const drink = menu.filter((item) => item.category === "drinks");
-//   const offered = menu.filter((item) => item.category === "offered");
+  //   const offered = menu.filter((item) => item.category === "offered");
 
-const params = useParams()
-console.log('params :>> ', params);
+  // console.log('params :>> ', params);
 
+  const helmet = useHook({page: 'Order'})
   return (
     <div>
+       {helmet}
       <Cover
         img={orderCoverImg}
         heading={"Our Shop"}
@@ -34,52 +45,52 @@ console.log('params :>> ', params);
         onSelect={(index) => {
           setTabIndex(index);
         }}
-        className={" bg-slate-700 text-white py-2"}
+        // bg-slate-700 text-white
+        className={" py-2"}
       >
         <TabList className={" text-center"}>
-          <Tab>Salad</Tab>
+          <Tab>salad</Tab>
           <Tab>Pizza</Tab>
           <Tab>Soup</Tab>
-          <Tab>Dessert</Tab>
+          <Tab>Desserts</Tab>
           <Tab>Drinks</Tab>
         </TabList>
 
         <TabPanel>
-            <div className="grid grid-cols-3 gap-10 px-10 my-10" >
-            {
-                salad.map(item => <FoodCard key={item._id} item={item}></FoodCard>)
-            }
-            </div>
+          <div className="grid grid-cols-3 gap-10 px-10 my-10">
+            {salad.map((item) => (
+              <FoodCard key={item._id} item={item}></FoodCard>
+            ))}
+          </div>
         </TabPanel>
         <TabPanel>
-            <div className="grid grid-cols-3 gap-10 px-10 my-10" >
-            {
-                pizza.map(item => <FoodCard key={item._id} item={item}></FoodCard>)
-            }
-            </div>
+          <div className="grid grid-cols-3 gap-10 px-10 my-10">
+            {pizza.map((item) => (
+              <FoodCard key={item._id} item={item}></FoodCard>
+            ))}
+          </div>
         </TabPanel>
         <TabPanel>
-            <div className="grid grid-cols-3 gap-10 px-10 my-10" >
-            {
-                soup.map(item => <FoodCard key={item._id} item={item}></FoodCard>)
-            }
-            </div>
+          <div className="grid grid-cols-3 gap-10 px-10 my-10">
+            {soup.map((item) => (
+              <FoodCard key={item._id} item={item}></FoodCard>
+            ))}
+          </div>
         </TabPanel>
         <TabPanel>
-            <div className="grid grid-cols-3 gap-10 px-10 my-10" >
-            {
-                dessert.map(item => <FoodCard key={item._id} item={item}></FoodCard>)
-            }
-            </div>
+          <div className="grid grid-cols-3 gap-10 px-10 my-10">
+            {dessert.map((item) => (
+              <FoodCard key={item._id} item={item}></FoodCard>
+            ))}
+          </div>
         </TabPanel>
         <TabPanel>
-            <div className="grid grid-cols-3 gap-10 px-10 my-10" >
-            {
-                drink.map(item => <FoodCard key={item._id} item={item}></FoodCard>)
-            }
-            </div>
+          <div className="grid grid-cols-3 gap-10 px-10 my-10">
+            {drink.map((item) => (
+              <FoodCard key={item._id} item={item}></FoodCard>
+            ))}
+          </div>
         </TabPanel>
-        
       </Tabs>
     </div>
   );
