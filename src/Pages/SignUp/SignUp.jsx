@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
@@ -12,7 +13,16 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    createUser(data.email, data.password)
+    .then(res=> {
+        const user = res.user
+        console.log(user)
+    })
+    .catch(error=> {
+        console.log(error.message)
+    })
+  }
 
   // const handleSignUp = (e) => {
   //     e.preventDefault();
@@ -27,8 +37,12 @@ const SignUp = () => {
   //       console.log(user)
   //     })
   //   };
+  
   return (
     <div className="hero min-h-screen bg-base-200">
+        <Helmet>
+            <title>Bistro Boss | Sign up</title>
+        </Helmet>
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center md:w-1/2 lg:text-left">
           <h1 className="text-5xl font-bold">Sign Up</h1>
@@ -76,10 +90,13 @@ const SignUp = () => {
                 placeholder="password"
                 className="input input-bordered"
                 name="password"
-                {...register("password",{ required: true })}
+                {...register("password",{ required: true , minLength: 6, maxLength:20,pattern:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/})}
                 
               />
-              {errors.password && <span>Password is required</span>}
+              {errors.password?.type==='required' && <span>Password is required</span>}
+              {errors.password?.type==='minLength' && <span>Password must be at least 6 characters</span>}
+              {errors.password?.type==='maxLength' && <span>Password must be less than 20 characters</span>}
+              {errors.password?.type==='pattern' && 'Password must have at least 1 uppercase , 1 lowercase , 1 digit and 1 special character'}
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
@@ -88,7 +105,8 @@ const SignUp = () => {
             </div>
 
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <input type="submit" className="btn btn-primary" value={'Sign Up'}/>
+              
             </div>
           </form>
         </div>
