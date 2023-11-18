@@ -1,41 +1,50 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import { FaShoppingCart } from 'react-icons/fa';
 
 const NavBar = () => {
+  const { logoutUser, user } = useContext(AuthContext);
 
-  const {logoutUser,user}= useContext(AuthContext)
-
-
-  const handleLogout = () =>{
-    logoutUser()
-    .then(console.log('success'))
-  }
+  const handleLogout = () => {
+    logoutUser().then(console.log("success"));
+  };
   const navOptions = (
     <>
-      <li>
-        <Link to={'/'}>Home</Link>
+      <li >
+        <Link to={"/"}>Home</Link>
       </li>
       <li>
-        <Link to={'/menu'}>Menu</Link>
+        <Link to={"/menu"}>Menu</Link>
       </li>
       <li>
-        <Link to={'/order/salad'}>Order</Link>
+        <Link to={"/order/salad"}>Order</Link>
       </li>
-      
-    {
-      user ? <>
-      <button onClick={handleLogout} className="btn btn-ghost pb-2">Logout</button>
-      </>:<>
       <li>
-        <Link to={'/login'}>Login</Link>
+        <Link to={"/"}>
+          <button className="  text-inherit">
+          <FaShoppingCart className="text-xl inline-block"/>
+            <div className="badge badge-secondary">+0</div>
+          </button>
+        </Link>
       </li>
-      </>
-    }
+
+      {user ? (
+        <>
+          <button onClick={handleLogout} className="btn btn-ghost pb-2">
+            Logout
+          </button>
+        </>
+      ) : (
+        <>
+          <li>
+            <Link to={"/login"}>Login</Link>
+          </li>
+        </>
+      )}
       {/* <li>
         <Link to={'/signup'}>Sign Up</Link>
       </li> */}
-      
     </>
   );
 
