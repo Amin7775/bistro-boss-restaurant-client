@@ -7,6 +7,7 @@ import useMenu from "../../hooks/useMenu";
 import FoodCard from "../../components/FoodCard/FoodCard";
 import { useParams } from "react-router-dom";
 import useHook from "../../hooks/useHook";
+import OrderTab from "./OrderTab";
 
 const Order = () => {
   const categoriess = ["salad", "pizza", "soup", "dessert", "drinks"];
@@ -30,10 +31,10 @@ const Order = () => {
 
   // console.log('params :>> ', params);
 
-  const helmet = useHook({page: 'Order'})
+  const helmet = useHook({ page: "Order" });
   return (
     <div>
-       {helmet}
+      {helmet}
       <Cover
         img={orderCoverImg}
         heading={"Our Shop"}
@@ -57,39 +58,19 @@ const Order = () => {
         </TabList>
 
         <TabPanel>
-          <div className="grid grid-cols-3 gap-10 px-10 my-10">
-            {salad.map((item) => (
-              <FoodCard key={item._id} item={item}></FoodCard>
-            ))}
-          </div>
+          <OrderTab items={salad}></OrderTab>
         </TabPanel>
         <TabPanel>
-          <div className="grid grid-cols-3 gap-10 px-10 my-10">
-            {pizza.map((item) => (
-              <FoodCard key={item._id} item={item}></FoodCard>
-            ))}
-          </div>
+          <OrderTab items={pizza}></OrderTab>
         </TabPanel>
         <TabPanel>
-          <div className="grid grid-cols-3 gap-10 px-10 my-10">
-            {soup.map((item) => (
-              <FoodCard key={item._id} item={item}></FoodCard>
-            ))}
-          </div>
+          <OrderTab items={soup}></OrderTab>
         </TabPanel>
         <TabPanel>
-          <div className="grid grid-cols-3 gap-10 px-10 my-10">
-            {dessert.map((item) => (
-              <FoodCard key={item._id} item={item}></FoodCard>
-            ))}
-          </div>
+          <OrderTab items={dessert}></OrderTab>
         </TabPanel>
         <TabPanel>
-          <div className="grid grid-cols-3 gap-10 px-10 my-10">
-            {drink.map((item) => (
-              <FoodCard key={item._id} item={item}></FoodCard>
-            ))}
-          </div>
+          <OrderTab items={drink}></OrderTab>
         </TabPanel>
       </Tabs>
     </div>
