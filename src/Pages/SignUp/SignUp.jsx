@@ -4,20 +4,24 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser ,updateUser} = useContext(AuthContext);
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
+    console.log(data.photoUrl)
     createUser(data.email, data.password)
     .then(res=> {
         const user = res.user
         console.log(user)
+        updateUser(data.name,data.photoUrl)
+        .then(()=>reset())
     })
     .catch(error=> {
         console.log(error.message)
@@ -66,6 +70,21 @@ const SignUp = () => {
                 {...register("name",{ required: true })}
                 />
                 {errors.name && <span>Name is required</span>}
+            </div>
+
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">photoUrl</span>
+              </label>
+              <input
+                type="text"
+                placeholder="photoUrl"
+                className="input input-bordered"
+                name="photoUrl"
+                {...register("photoUrl",{ required: true })}
+                />
+                {errors.photoUrl && <span>photoUrl is required</span>}
             </div>
             <div className="form-control">
               <label className="label">
