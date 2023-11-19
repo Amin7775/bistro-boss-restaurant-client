@@ -9,9 +9,6 @@ import AuthProvider from "./Provider/AuthProvider.jsx";
 
 //Tan Stack Query - 
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'

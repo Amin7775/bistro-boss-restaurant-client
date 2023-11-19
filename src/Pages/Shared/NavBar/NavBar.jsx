@@ -23,7 +23,7 @@ const NavBar = () => {
         <Link to={"/order/salad"}>Order</Link>
       </li>
       <li>
-        <Link to={"/"}>
+        <Link to={"/dashboard/cart"}>
           <button className="  text-inherit">
           <FaShoppingCart className="text-xl inline-block"/>
             <div className="badge badge-secondary">{cart.length}</div>
