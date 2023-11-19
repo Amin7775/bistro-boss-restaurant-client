@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import SocialLogin from "../../components/FoodCard/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const { createUser ,updateUser} = useContext(AuthContext);
@@ -144,6 +145,11 @@ const SignUp = () => {
               
             </div>
           </form>
+          <div className="divider"></div>
+          <div className="w-full flex justify-center mb-5">
+          <SocialLogin></SocialLogin>
+
+          </div>
         </div>
       </div>
     </div>
