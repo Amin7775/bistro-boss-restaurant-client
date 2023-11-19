@@ -104,7 +104,7 @@ const Login = () => {
                 placeholder="Type The Captcha Above"
                 className="input input-bordered"
                 name="captcha"
-                required
+                // required
               />
               <button
                 onClick={handleValidateCaptcha}
@@ -114,7 +114,8 @@ const Login = () => {
               </button>
             </div>
             <div className="form-control mt-6">
-              <button disabled={disabled} className="btn btn-primary">
+              {/* disabled == true to enable captcha */}
+              <button disabled={false} className="btn btn-primary">
                 Login
               </button>
             </div>
