@@ -2,9 +2,13 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const { createUser ,updateUser} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -16,12 +20,24 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     console.log(data.photoUrl)
+    const userInfo = {
+      email: data.email,
+      name: data.name
+    }
     createUser(data.email, data.password)
     .then(res=> {
         const user = res.user
         console.log(user)
         updateUser(data.name,data.photoUrl)
-        .then(()=>reset())
+        .then(()=>{
+          axiosPublic.post('/users', userInfo)
+          .then(res=>{
+            if(res.data.insertedId){
+              console.log("SignUp Success", res.data)
+            }
+          })
+          reset()
+        })
     })
     .catch(error=> {
         console.log(error.message)
