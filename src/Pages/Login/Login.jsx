@@ -8,6 +8,7 @@ import {
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import SocialLogin from "../../components/FoodCard/SocialLogin/SocialLogin";
 
 const Login = () => {
   const captchaRef = useRef(null);
@@ -120,7 +121,12 @@ const Login = () => {
               </button>
             </div>
           </form>
-          <p>New Here? <Link to={'/signup'}><span className="text-blue-400">Sign Up</span></Link> </p>
+          <p className="text-center">New Here? <Link to={'/signup'}><span className="text-blue-400">Sign Up</span></Link></p>
+          <div className="divider"></div>
+          <div className="w-full flex justify-center mb-5">
+          <SocialLogin></SocialLogin>
+
+          </div>
         </div>
       </div>
     </div>

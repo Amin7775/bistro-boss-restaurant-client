@@ -2,6 +2,8 @@ import { FaCalendar, FaHome, FaHouseUser, FaList, FaMailBulk, FaShoppingBag, FaS
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
+
+    const inAdmin = true;
     return (
         <div className="flex bg-[#F6F6F6]">
             <div className="w-64 bg-orange-400 min-h-screen">
@@ -15,7 +17,8 @@ const Dashboard = () => {
                     <li><NavLink to={'/dashboard/cart'}><FaShoppingCart></FaShoppingCart>My Cart</NavLink></li>
                     <li><NavLink to={'/dashboard/reviews'}><FaStar></FaStar>My Reviews</NavLink></li>
                     <li><NavLink to={'/dashboard/bookings'}><FaList></FaList>My Bookings</NavLink></li>
-
+                    
+                    {/* Shared */}
                     <div className="divider"></div>
                     <li><NavLink to={'/'}><FaHouseUser></FaHouseUser> Home</NavLink></li>
                     <li><NavLink to={'/menu'}><FaList></FaList> Menu</NavLink></li>
