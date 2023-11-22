@@ -1,9 +1,9 @@
-import { FaCalendar, FaHome, FaHouseUser, FaList, FaMailBulk, FaShoppingBag, FaShoppingCart, FaStar } from "react-icons/fa";
+import { FaAd, FaCalendar, FaHome, FaHouseUser, FaList, FaMailBulk, FaShoppingBag, FaShoppingCart, FaStar, FaUsers, FaUtensilSpoon, FaUtensils } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
 
-    const inAdmin = true;
+    const isAdmin = true;
     return (
         <div className="flex bg-[#F6F6F6]">
             <div className="w-64 bg-orange-400 min-h-screen">
@@ -12,11 +12,23 @@ const Dashboard = () => {
                 <h1 className="font-semibold">Restaurant</h1>
                 </div>
                 <ul className="menu mt-10 text-lg">
-                    <li><NavLink to={'/dashboard/userHome'}><FaHome></FaHome>User Home</NavLink></li>
+                   {
+                    isAdmin ? <>
+                     <li><NavLink to={'/dashboard/adminHome'}><FaHome></FaHome>Admin Home</NavLink></li>
+                    <li><NavLink to={'/dashboard/addItems'}><FaUtensils></FaUtensils> Add Items</NavLink></li>
+                    <li><NavLink to={'/dashboard/manageItems'}><FaList></FaList> Manage Items</NavLink></li>
+                    <li><NavLink to={'/dashboard/manageBookings'}><FaAd></FaAd> Manage Bookings</NavLink></li>
+                    <li><NavLink to={'/dashboard/allUsers'}><FaUsers></FaUsers> All Users</NavLink></li>
+                    </>
+                    :
+                    <>
+                     <li><NavLink to={'/dashboard/userHome'}><FaHome></FaHome>User Home</NavLink></li>
                     <li><NavLink to={'/dashboard/reservation'}><FaCalendar></FaCalendar> Reservation</NavLink></li>
                     <li><NavLink to={'/dashboard/cart'}><FaShoppingCart></FaShoppingCart>My Cart</NavLink></li>
                     <li><NavLink to={'/dashboard/reviews'}><FaStar></FaStar>My Reviews</NavLink></li>
                     <li><NavLink to={'/dashboard/bookings'}><FaList></FaList>My Bookings</NavLink></li>
+                    </>
+                   }
                     
                     {/* Shared */}
                     <div className="divider"></div>
