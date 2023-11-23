@@ -1,29 +1,44 @@
 import axios from "axios";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const axiosSecure = axios.create({
-    baseURL:'http://localhost:5000'
-})
+  baseURL: "http://localhost:5000",
+});
 
 const useAxiosSecure = () => {
-    axiosSecure.interceptors.request.use(function (config) {
-    const token = localStorage.getItem('access-token')
-    console.log("inside axios secure")
-    config.headers.authorization = `Bearer ${token}`
-    return config
-    },function(error){
-        return Promise.reject(error)
-    })
+  const navigate = useNavigate();
+  const {logoutUser}=useContext(AuthContext)
+  axiosSecure.interceptors.request.use(
+    function (config) {
+      const token = localStorage.getItem("access-token");
+      console.log("inside axios secure");
+      config.headers.authorization = `Bearer ${token}`;
+      return config;
+    },
+    function (error) {
+      return Promise.reject(error);
+    }
+  );
 
-    //intercept 401 and 403 status
-    axiosSecure.interceptors.response.use(function(response){
-        return response;
-    }, (error) =>{
-        const status = error.response.status;
-        console.log("status error from interceptor response : ", status)
-        return Promise.reject(error)
-    })
+  //intercept 401 and 403 status
+  axiosSecure.interceptors.response.use(
+    function (response) {
+      return response;
+    },
+    async(error) => {
+      const status = error.response.status;
+      console.log("status error from interceptor response : ", status);
+      if (status === 401 || status===403){
+        await logoutUser()
+        navigate('/login')
+      } 
+      return Promise.reject(error);
+    }
+  );
 
-    return axiosSecure;
+  return axiosSecure;
 };
 
 export default useAxiosSecure;
