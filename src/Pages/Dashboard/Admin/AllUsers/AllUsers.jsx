@@ -10,7 +10,11 @@ const AllUsers = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get("/users", {
+        headers: {
+          authorization : `Bearer ${localStorage.getItem('access-token')}`
+        }
+      });
       return res.data;
     },
   });
@@ -18,8 +22,7 @@ const AllUsers = () => {
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
       console.log(res.data);
-      if(res.data.modifiedCount){
-
+      if (res.data.modifiedCount) {
         Swal.fire({
           position: "center",
           icon: "success",
@@ -27,7 +30,7 @@ const AllUsers = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        refetch()
+        refetch();
       }
     });
   };
@@ -84,15 +87,16 @@ const AllUsers = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td className="flex justify-start">
-                  {
-                    user?.role == 'admin' ? 'Admin' :
+                  {user?.role == "admin" ? (
+                    "Admin"
+                  ) : (
                     <button
-                    onClick={() => handleMakeAdmin(user)}
-                    className="btn btn-ghost btn-lg bg-orange-400"
-                  >
-                    <FaUsers></FaUsers>{" "}
-                  </button>
-                  }
+                      onClick={() => handleMakeAdmin(user)}
+                      className="btn btn-ghost btn-lg bg-orange-400"
+                    >
+                      <FaUsers></FaUsers>{" "}
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button
