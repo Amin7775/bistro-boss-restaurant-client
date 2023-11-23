@@ -5,6 +5,24 @@ const axiosSecure = axios.create({
 })
 
 const useAxiosSecure = () => {
+    axiosSecure.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('access-token')
+    console.log("inside axios secure")
+    config.headers.authorization = `Bearer ${token}`
+    return config
+    },function(error){
+        return Promise.reject(error)
+    })
+
+    //intercept 401 and 403 status
+    axiosSecure.interceptors.response.use(function(response){
+        return response;
+    }, (error) =>{
+        const status = error.response.status;
+        console.log("status error from interceptor response : ", status)
+        return Promise.reject(error)
+    })
+
     return axiosSecure;
 };
 
