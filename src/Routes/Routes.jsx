@@ -13,6 +13,7 @@ import AddItems from "../Pages/Dashboard/Admin/AddItems/AddItems";
 import ManageItems from "../Pages/Dashboard/Admin/ManageItems/ManageItems";
 import ManageBookings from "../Pages/Dashboard/Admin/ManageBookings/ManageBookings";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers/AllUsers";
+import AdminRoute from "./AdminRoute";
 
 
 
@@ -74,23 +75,23 @@ export const router = createBrowserRouter([
             {   
                 // Admin Section
                 path:'adminHome',
-                element:<AdminHome></AdminHome>
+                element:<AdminRoute><AdminHome></AdminHome></AdminRoute>
             },
             {
                 path:'addItems',
-                element:<AddItems></AddItems>
+                element:<AdminRoute><AddItems></AddItems></AdminRoute>
             },
             {
                 path:'manageItems',
-                element:<ManageItems></ManageItems>
+                element:<AdminRoute><ManageItems></ManageItems></AdminRoute>
             },
             {
                 path:'manageBookings',
-                element:<ManageBookings></ManageBookings>
+                element:<AdminRoute><ManageBookings></ManageBookings></AdminRoute>
             },
             {
                 path:'allUsers',
-                element:<AllUsers></AllUsers>
+                element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
         ]
     }
